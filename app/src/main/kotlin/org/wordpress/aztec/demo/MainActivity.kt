@@ -119,6 +119,8 @@ class MainActivity : AppCompatActivity(),
                 UNKNOWN +
                 EMOJI +
                 LONG_TEXT
+
+        var testMode: Boolean = false
     }
 
     private val MEDIA_CAMERA_PHOTO_PERMISSION_REQUEST_CODE: Int = 1001
@@ -135,7 +137,6 @@ class MainActivity : AppCompatActivity(),
     private lateinit var mediaPath: String
     private lateinit var source: SourceViewEditText
     private lateinit var formattingToolbar: AztecToolbar
-
     private lateinit var invalidateOptionsHandler: Handler
     private lateinit var invalidateOptionsRunnable: Runnable
 
@@ -256,7 +257,9 @@ class MainActivity : AppCompatActivity(),
         aztec.setToolbar(formattingToolbar)
 
         // initialize the text & HTML
-        source.displayStyledAndFormattedHtml(EXAMPLE)
+        if (!testMode) {
+            source.displayStyledAndFormattedHtml(EXAMPLE)
+        }
 
         if (savedInstanceState == null) {
             aztec.fromHtml(source.getPureHtml())
